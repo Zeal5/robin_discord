@@ -15,5 +15,4 @@ async def flip(interaction: discord.Interaction):
             title="Title", description="Desc", color=0x336EFF
         )
     embedVar.add_field(name="Field1", value="hi", inline=False)
-    embedVar.add_field(name="Field2", value="hi2", inline=False)
     await message.channel.send(embed=embedVar)
