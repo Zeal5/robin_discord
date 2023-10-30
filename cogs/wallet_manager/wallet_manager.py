@@ -5,7 +5,7 @@ import discord
 from discord.ui import Button, View
 from typing import Optional, Dict, Any, Coroutine, List, Union
 from .call_backend import create_user_account,get_all_wallets, Wallet, WalletError
-from .views import DropdownView, RecoveryPhrasePrompt
+from .views import DropdownView, RecoveryPhrasePrompt ,ChangeActiveWalletView
 from discord import ui
 from . import bot_settings
 
@@ -41,17 +41,17 @@ class WalletView(View):
     ):
         wallets: List[Wallet] = await get_all_wallets(interaction.user.id)
         embed = Embed(
-            title="getting new wallet",
-            description="geting getin fetin",
+            title="All Wallets",
+            # description="",
             color=colour.Colour.green(),
         )
         embed.set_footer(text = "This message will be deleted after 4 minutes")
         for wallet in wallets:
             embed.add_field(
-                name = wallet.wallet_name,
+                name = f"{wallet.wallet_name} {' :white_check_mark:' if wallet.is_active else ''}",
                 value= f"```{wallet.address}```",
                 inline = False )
-        await interaction.response.edit_message(embed=embed)
+        await interaction.response.edit_message(embed=embed,view = ChangeActiveWalletView(interaction, wallets))
 
 
 class Manager(commands.Cog):
