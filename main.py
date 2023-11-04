@@ -17,11 +17,12 @@ intents.message_content = True
 
 
 bot = commands.Bot(command_prefix="/", intents=intents)
-
+cogs = ["cogs.wallet_manager.wallet_manager", "cogs.normal_trade.trade_entry_point"]
 @bot.event
 async def on_ready():
     try:
-        await bot.load_extension("cogs.wallet_manager.wallet_manager")
+        for cog in cogs:
+            await bot.load_extension(cog)
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} commands: {synced = }")
     except Exception as e:
