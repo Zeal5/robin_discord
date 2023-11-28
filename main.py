@@ -16,18 +16,32 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 
-bot = commands.Bot(command_prefix="/", intents=intents)
 cogs = ["cogs.wallet_manager.wallet_manager", "cogs.normal_trade.trade_entry_point"]
-@bot.event
-async def on_ready():
-    try:
+
+
+class MyBot(commands.Bot):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    async def setup_hook(self):
+        print("Bot is starting")
         for cog in cogs:
+            print(cog)
             await bot.load_extension(cog)
+
+    async def on_ready(self):
+        print("Bot is ready")
+
+
+bot = MyBot(command_prefix='/', intents=intents)
+
+@bot.command(name='sync')
+async def sync_tree(ctx):
+    try:
         synced = await bot.tree.sync()
         print(f"Synced {len(synced)} commands: {synced = }")
     except Exception as e:
         print(e)
-    print("Bot is ready")
 
 
 @bot.command(name='purge')
@@ -36,7 +50,6 @@ async def purge(ctx, *limit):
     await ctx.channel.send(limit)
     channel = ctx.channel
     await channel.purge(limit=limit)
-    
 
 
 bot.run(API)

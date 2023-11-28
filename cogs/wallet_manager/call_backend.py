@@ -55,7 +55,7 @@ async def make_request(url: str, data: Dict) -> Union[List[Wallet], Wallet, Wall
             return await not_success(response)
 
 async def get_all_wallets(tg_id : int) -> List[Wallet] | WalletError | Wallet :
-    url = configs['url']['get_wallets']
+    url = f'{configs["url"]}{configs["endpoint"]["get_wallets"]}'
     data = UserWallet(tg_id = tg_id)
     _data = data.model_dump(mode='json')
     response = await make_request(url, _data)
@@ -65,7 +65,7 @@ async def create_user_account(
     tg_id: int, secret: Optional[str] = None
 ) -> Wallet | WalletError:
     """takes in user id and wallet secret and returns a str"""
-    url = configs["url"]["create_wallet"]
+    url = f'{configs["url"]}{configs["endpoint"]["create_wallet"]}'
     data = UserWallet(tg_id=tg_id, secret=secret)
     _data = data.model_dump(mode="json")  # convert UserWallet to python dict | json
     print(_data)
@@ -82,7 +82,7 @@ class ChangeActiveWallet:
         pass
 
     async def change_active_wallet_function(self,tg_id:int,  wallet_id : int) -> Union[bool, Embed]:
-        url = configs['url']['change_active_wallet']
+        url = f'{configs["url"]}{configs["endpoint"]["change_active_wallet"]}'
         data =  ChangeActiveWallet.ActiveWallet(tg_id = tg_id, button_id = wallet_id)
         _data= data.model_dump(mode= 'json')
         self.response = await self.make_request(url , _data)

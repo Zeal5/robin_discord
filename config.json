@@ -1,11 +1,13 @@
 {
-    "url": {
-        "buy_tokens_with_eth": "http://127.0.0.1:8000/buy_tokens_with_eth",
-        "create_wallet": "http://127.0.0.1:8000/create_wallet",
-        "change_active_wallet": "http://127.0.0.1:8000/change_active_wallet",
-        "get_wallets": "http://127.0.0.1:8000/get_wallets",
-        "get_token_balance": "http://127.0.0.1:8000/get_token_balance",
-        "get_eth_balance": "http://127.0.0.1:8000/get_eth_balance",
-        "get_user_settings": "http://127.0.0.1:8000/get_settings"
+    "url": "http://127.0.0.1:8000/",
+		"endpoint" :{
+        "buy_tokens_with_eth": "buy_tokens_with_eth",
+        "create_wallet": "create_wallet",
+        "change_active_wallet": "change_active_wallet",
+        "get_wallets": "get_wallets",
+        "get_token_balance": "get_token_balance",
+        "get_eth_balance": "get_eth_balance",
+        "get_user_settings": "get_settings",
+				"get_token_details": "get_token_details"
     }
 }

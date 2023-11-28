@@ -58,9 +58,8 @@ class Manager(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @app_commands.command(name="wallet_manager")
+    @app_commands.command(name="wallet",description="Add Wallet or create a new Wallet")
     async def my_command(self, interaction: discord.Interaction) -> None:
-        """Add wallet or create new wallet"""
 
         embed = Embed(
             title="Wallet Manager",
